@@ -6,6 +6,7 @@ import CartContext from "../store/CartContext";
 function Header() {
   const cartCtx = useContext(CartContext);
   const totalCartItems = cartCtx.items.reduce((totalNumberOfItems, item) => {
+    console.log('t ' + totalNumberOfItems, item)
     return totalNumberOfItems + item.quantity;
   }, 0);
   return (
