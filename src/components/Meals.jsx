@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import MealItem from "./MealItem";
 
 function Meals() {
+  console.log("Meal Component")
+
   const [loadedMeals, setLoadedMeals] = useState([]);
 
   useEffect(() => {

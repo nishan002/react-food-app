@@ -7,6 +7,8 @@ import UserProgressContext from "../store/UserProgressContext";
 import CartItem from "./CartItem";
 
 function Cart() {
+  console.log("Cart Component")
+
   const cartCtx = useContext(CartContext);
   const userProgressCtx = useContext(UserProgressContext);
   const cartTotal = cartCtx.items.reduce((totalPrice, item) => {
@@ -35,7 +37,8 @@ function Cart() {
         <Button textOnly onClick={handleCloseCart}>
           Close
         </Button>
-        <Button>Go to Chekout</Button>
+        {cartCtx.items.length > 0 && <Button textOnly onClick={handleCloseCart}>Go to Chekout</Button> }
+        
       </p>
     </Modal>
   );

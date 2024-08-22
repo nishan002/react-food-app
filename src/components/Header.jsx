@@ -5,6 +5,7 @@ import CartContext from "../store/CartContext";
 import UserProgressContext from "../store/UserProgressContext";
 
 function Header() {
+  console.log("Header Component")
   const cartCtx = useContext(CartContext);
   const userProgressCtx = useContext(UserProgressContext);
 

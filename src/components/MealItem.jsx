@@ -4,6 +4,8 @@ import Button from "./UI/Button";
 import CartContext from "../store/CartContext";
 
 function MealItem({ meal }) {
+  console.log("Meal Item Component")
+
   const { items, addItem, removeItem } = useContext(CartContext);
 
   return (
