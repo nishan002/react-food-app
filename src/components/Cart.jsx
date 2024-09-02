@@ -37,7 +37,7 @@ function Cart() {
         <Button textOnly onClick={handleCloseCart}>
           Close
         </Button>
-        {cartCtx.items.length > 0 && <Button textOnly onClick={handleCloseCart}>Go to Chekout</Button> }
+        {cartCtx.items.length > 0 && <Button onClick={handleCloseCart}>Go to Chekout</Button> }
         
       </p>
     </Modal>
