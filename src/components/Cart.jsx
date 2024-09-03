@@ -7,7 +7,7 @@ import UserProgressContext from "../store/UserProgressContext";
 import CartItem from "./CartItem";
 
 function Cart() {
-  console.log("Cart Component")
+  console.log("Cart Component");
 
   const cartCtx = useContext(CartContext);
   const userProgressCtx = useContext(UserProgressContext);
@@ -15,12 +15,20 @@ function Cart() {
     return totalPrice + item.quantity * item.price;
   }, 0);
 
+  function handleGoCheckout() {
+    userProgressCtx.showCheckout();
+  }
+
   function handleCloseCart() {
     userProgressCtx.hideCart();
   }
 
   return (
-    <Modal className="cart" open={userProgressCtx.progress === "cart"}>
+    <Modal
+      className="cart"
+      open={userProgressCtx.progress === "cart"}
+      onClose={userProgressCtx.progress === "cart" ? handleCloseCart : null}
+    >
       <h2>Your Cart</h2>
       <ul>
         {cartCtx.items.map((item) => (
@@ -37,8 +45,9 @@ function Cart() {
         <Button textOnly onClick={handleCloseCart}>
           Close
         </Button>
-        {cartCtx.items.length > 0 && <Button onClick={handleCloseCart}>Go to Chekout</Button> }
-        
+        {cartCtx.items.length > 0 && (
+          <Button onClick={handleGoCheckout}>Go to Chekout</Button>
+        )}
       </p>
     </Modal>
   );
