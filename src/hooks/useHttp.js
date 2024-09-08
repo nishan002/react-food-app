@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 // Processing the request and return response
 async function sendHttpRequest(url, config) {
   const response = await fetch(url, config);
-  const resData = response.json();
+  const resData = await response.json();
 
   if (!response.ok) {
     throw new Error(
@@ -15,8 +15,8 @@ async function sendHttpRequest(url, config) {
 }
 
 // Custom useHttp hook
-function useHttp(url, config) {
-  const [data, setData] = useState();
+function useHttp(url, config, initialData) {
+  const [data, setData] = useState(initialData);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
 
@@ -24,17 +24,18 @@ function useHttp(url, config) {
     async function sendRequest() {
       setIsLoading(true);
       try {
-        const resData = sendHttpRequest(url, config);
+        const resData = await sendHttpRequest(url, config);
         setData(resData);
       } catch (error) {
         setError(error.message || "Something went wrong!");
       }
+      setIsLoading(false)
     },
     [url, config]
   );
 
   useEffect(() => {
-    if (config && config.method === "GET") {
+    if ((config && (config.method === "GET" || !config.method)) || !config) {
       sendRequest();
     }
   }, [sendRequest, config]);
