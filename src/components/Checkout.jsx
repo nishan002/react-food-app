@@ -23,7 +23,9 @@ function Checkout() {
     error,
     isLoading: isSending,
     sendRequest,
+    clearData
   } = useHttp("http://localhost:3000/orders", requestConfig);
+
   const cartTotal = cartCtx.items.reduce((totalPrice, item) => {
     return totalPrice + item.quantity * item.price;
   }, 0);
@@ -48,6 +50,12 @@ function Checkout() {
     );
   }
 
+  function handleFinish(){
+    userProgressCtx.hideCheckout();
+    cartCtx.clearCart();
+    clearData();
+  }
+
   let actions = (
     <>
       <Button type="button" textOnly onClick={handleClose}>
@@ -65,7 +73,7 @@ function Checkout() {
     return (
       <Modal
         open={userProgressCtx.progress == "checkout"}
-        onClose={handleClose}
+        onClose={handleFinish}
       >
         <h2>Success!</h2>
         <p>Your order was submitted successfully.</p>
@@ -74,9 +82,7 @@ function Checkout() {
           few minutes
         </p>
         <p className="modal-actions">
-          <Button onClick={handleClose}>
-            Ok
-          </Button>
+          <Button onClick={handleFinish}>Ok</Button>
         </p>
       </Modal>
     );
